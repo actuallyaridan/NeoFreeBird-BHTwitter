@@ -226,10 +226,11 @@
         PSSpecifier *acknowledgements = [self newButtonCellWithTitle:[[BHTBundle sharedBundle] localizedStringForKey:@"LEGAL_BUTTON_TITLE"] detailTitle:nil dynamicRule:nil action:@selector(showAcknowledgements:)];
         
         // dvelopers section
+    
+        PSSpecifier *actuallyaridan = [self newHBTwitterCellWithTitle:@"aridan" twitterUsername:@"actuallyaridan" customAvatarURL:@"https://avatars.githubusercontent.com/u/96298432?v=4"];
+        PSSpecifier *timi2506 = [self newHBTwitterCellWithTitle:@"timi2506" twitterUsername:@"timi2506" customAvatarURL:@"https://avatars.githubusercontent.com/u/172171055?v=4"];
+        PSSpecifier *nyathea = [self newHBTwitterCellWithTitle:@"nyathea" twitterUsername:@"nyaathea" customAvatarURL:@"https://avatars.githubusercontent.com/u/108613931?v=4"];
         PSSpecifier *bandarHL = [self newHBTwitterCellWithTitle:@"BandarHelal" twitterUsername:@"BandarHL" customAvatarURL:@"https://unavatar.io/twitter/BandarHL"];
-        PSSpecifier *tipJar = [self newHBLinkCellWithTitle:@"Tip Jar" detailTitle:@"Donate Via Paypal" url:@"https://www.paypal.me/BandarHL"];
-        PSSpecifier *buymecoffee = [self newHBLinkCellWithTitle:@"Buy Me A Coffee" detailTitle:nil url:@"https://www.buymeacoffee.com/bandarHL"];
-        PSSpecifier *sourceCode = [self newHBLinkCellWithTitle:@"BHTwitter" detailTitle:@"Code source of BHTwitter" url:@"https://github.com/BandarHL/BHTwitter/"];
         
         _specifiers = [NSMutableArray arrayWithArray:@[
             
@@ -503,7 +504,7 @@
     UITableViewCell *specifierCell = [specifier propertyForKey:PSTableCellKey];
     PSSpecifier *selectionSpecifier = [self specifierForID:@"Select URL host"];
 
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"BHTwitter" message:@"plaese select what host you prefre" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"NeoFreeBird" message:@"URL" preferredStyle:UIAlertControllerStyleActionSheet];
 
     if (alert.popoverPresentationController != nil) {
         CGFloat midX = CGRectGetMidX(specifierCell.frame);
