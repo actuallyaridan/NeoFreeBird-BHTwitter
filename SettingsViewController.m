@@ -286,10 +286,10 @@
             flex,
             
             developer, // 5
-            bandarHL,
-            tipJar,
-            buymecoffee,
-            sourceCode
+            actuallyaridan,
+            timi2506,
+            nyathea,
+            bandarHL
         ]];
         
         [self collectDynamicSpecifiersFromArray:_specifiers];
