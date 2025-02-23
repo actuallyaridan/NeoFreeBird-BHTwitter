@@ -13,7 +13,7 @@
 "OK_BUTTON_TITLE" = "OK";
 "YES_BUTTON_TITLE" = "Yes";
 "NO_BUTTON_TITLE" = "No";
-"CONFIRM_ALERT_MESSAGE" = "Are you sure?";
+"CONFIRM_ALERT_MESSAGE" = "Did you mean to do that?";
 "CANCEL_BUTTON_TITLE" = "Cancel";
 
 "PROGRESS_DOWNLOADING_STATUS_TITLE" = "Downloading...";
@@ -58,16 +58,16 @@
 
 "DISABLE_VIDEO_LAYER_CAPTIONS_OPTION_TITLE" = "Disable video captions";
 
-"VOICE_OPTION_TITLE" = "Enable voice Tweets";
-"VOICE_OPTION_DETAIL_TITLE" = "Allow voice recordings in Tweets and direct messages.";
+"VOICE_OPTION_TITLE" = "Enable Voice Tweets";
+"VOICE_OPTION_DETAIL_TITLE" = "Enable or disbale the Voice Tweet feature, available only on the iOS Twitter app.";
 
 "VIDEO_ZOOM_OPTION_TITLE" = "Zoom videos";
 "VIDEO_ZOOM_OPTION_DETAIL_TITLE" = "Double-tap a video to zoom in or out.";
 
 "NO_HISTORY_OPTION_TITLE" = "Disable search history";
-"NO_HISTORY_OPTION_DETAIL_TITLE" = "Stop Twitter from saving your searches.";
+"NO_HISTORY_OPTION_DETAIL_TITLE" = "Don't save any search history.";
 
-"BIO_TRANSALTE_OPTION_TITLE" = "Add translate button";
+"BIO_TRANSALTE_OPTION_TITLE" = "Translate button";
 "BIO_TRANSALTE_OPTION_DETAIL_TITLE" = "Add a translate button to user bios for easy translation.";
 
 "LIKE_CONFIRM_OPTION_TITLE" = "Confirm likes";
@@ -88,9 +88,9 @@
 "AUTO_HIGHEST_LOAD_OPTION_TITLE" = "High-quality photos";
 "AUTO_HIGHEST_LOAD_OPTION_DETAIL_TITLE" = "Always upload and load photos in the highest quality available.";
 
-"DISABLE_SENSITIVE_TWEET_WARNINGS_OPTION_TITLE" = "Hide sensitive content warnings";
+"DISABLE_SENSITIVE_TWEET_WARNINGS_OPTION_TITLE" = "Diable all sensitive content warnings";
 
-"TRUSTED_FRIENSS_OPTION_TITLE" = "Enable Twitter Circle";
+"TRUSTED_FRIENSS_OPTION_TITLE" = "Enable Twitter Circles";
 
 "COPY_PROFILE_INFO_OPTION_TITLE" = "Copy profile details";
 "COPY_PROFILE_INFO_OPTION_DETAIL_TITLE" = "Add a button to copy profile information.";
@@ -98,16 +98,16 @@
 "TWEET_TO_IMAGE_OPTION_TITLE" = "Save Tweet as an image";
 "TWEET_TO_IMAGE_OPTION_DETAIL_TITLE" = "Export Tweets as images by holding the share button.";
 
-"HIDE_SPACE_OPTION_TITLE" = "Hide Spaces bar";
+"HIDE_SPACE_OPTION_TITLE" = "Hide the Spaces bar";
 
 "DISABLE_RTL_OPTION_TITLE" = "Force left-to-right layout";
-"DISABLE_RTL_OPTION_DETAIL_TITLE" = "Use left-to-right layout even for right-to-left languages. Restart required.";
+"DISABLE_RTL_OPTION_DETAIL_TITLE" = "Use left-to-right layouts even for right-to-left languages. Restart required.";
 
-"ALWAYS_OPEN_SAFARI_OPTION_TITLE" = "Always open in browser";
-"ALWAYS_OPEN_SAFARI_OPTION_DETAIL_TITLE" = "Open links in Safari or your default browser.";
+"ALWAYS_OPEN_SAFARI_OPTION_TITLE" = "Disable the the in-app browser";
+"ALWAYS_OPEN_SAFARI_OPTION_DETAIL_TITLE" = "Open links in Safari or your default browser instead of the in-app browser.";
 
-"STRIP_URL_TRACKING_PARAMETERS_TITLE" = "Remove tracking from links";
-"STRIP_URL_TRACKING_PARAMETERS_DETAIL_TITLE" = "Remove tracking when copying Tweet links.";
+"STRIP_URL_TRACKING_PARAMETERS_TITLE" = "Custom URLs";
+"STRIP_URL_TRACKING_PARAMETERS_DETAIL_TITLE" = "Change whih URL is used when copying Tweet links. This also removes tracking.";
 
 "TWITTER_BLUE_SECTION_HEADER_TITLE" = "Twitter Blue features";
 "UNDO_TWEET_OPTION_TITLE" = "Undo Tweet";
@@ -194,7 +194,7 @@
 
 "FFMPEG_DOWNLOAD_OPTION_TITLE" = "Download with FFmpeg";
 
-"SELECT_URL_HOST_AFTER_COPY_OPTION_TITLE" = "Share link URL";
+"SELECT_URL_HOST_AFTER_COPY_OPTION_TITLE" = "Select custom URL";
 
 "UPLOAD_CUSTOM_VOICE_OPTION_TITLE" = "Custom voice uploads"; 
 "UPLOAD_CUSTOM_VOICE_OPTION_DETAIL_TITLE" = "Record and upload custom voiceovers for your posts.";
