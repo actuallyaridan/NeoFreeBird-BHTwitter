@@ -21,8 +21,8 @@
 
 "CUSTOM_FONTS_NAVIGATION_BUTTON_TITLE" = "Custom fonts";
 "CUSTOM_FONTS_NAVIGATION_TITLE" = "Select a font";
-"THEME_SETTINGS_NAVIGATION_TITLE" = "Theme settings";
-"CUSTOM_TAB_BAR_SETTINGS_NAVIGATION_TITLE" = "Tab bar customization";
+"THEME_SETTINGS_NAVIGATION_TITLE" = "Select theme";
+"CUSTOM_TAB_BAR_SETTINGS_NAVIGATION_TITLE" = "Customize the tab bar";
 "ACKNOWLEDGEMENTS_SETTINGS_NAVIGATION_TITLE" = "Credits";
 
 "COPY_PROFILE_INFO_MENU_OPTION_1" = "Copy bio";
@@ -103,7 +103,7 @@
 "DISABLE_RTL_OPTION_TITLE" = "Force left-to-right layout";
 "DISABLE_RTL_OPTION_DETAIL_TITLE" = "Use left-to-right layouts even for right-to-left languages. Restart required.";
 
-"ALWAYS_OPEN_SAFARI_OPTION_TITLE" = "Disable the the in-app browser";
+"ALWAYS_OPEN_SAFARI_OPTION_TITLE" = "Disable the in-app browser";
 "ALWAYS_OPEN_SAFARI_OPTION_DETAIL_TITLE" = "Open links in Safari or your default browser instead of the in-app browser.";
 
 "STRIP_URL_TRACKING_PARAMETERS_TITLE" = "Custom URLs";
@@ -125,10 +125,10 @@
 "THEME_OPTION_5" = "Orange";
 "THEME_OPTION_6" = "Green";
 
-"CUSTOM_TAB_BAR_OPTION_TITLE" = "Customize tab bar";
+"CUSTOM_TAB_BAR_OPTION_TITLE" = "Customize the tab bar";
 "CUSTOM_TAB_BAR_REST_MESSAGE" = "Reset tab bar settings to default?";
-"CUSTOM_TAB_BAR_SECTION_1_TITLE" = "Active tabs";
-"CUSTOM_TAB_BAR_SECTION_2_TITLE" = "Hidden tabs";
+"CUSTOM_TAB_BAR_SECTION_1_TITLE" = "Enabled";
+"CUSTOM_TAB_BAR_SECTION_2_TITLE" = "Disabled";
 "CUSTOM_TAB_BAR_OPTION_1" = "Home";
 "CUSTOM_TAB_BAR_OPTION_2" = "Explore";
 "CUSTOM_TAB_BAR_OPTION_3" = "Spaces";
@@ -136,8 +136,9 @@
 "CUSTOM_TAB_BAR_OPTION_5" = "Notifications";
 "CUSTOM_TAB_BAR_OPTION_6" = "Messages";
 "CUSTOM_TAB_BAR_OPTION_7" = "Grok";
+"CUSTOM_TAB_BAR_OPTION_8" = "Vine (Video)";
 
-"TWITTER_BLUE_SECTION_FOOTER_TITLE" = "Restart Twitter to apply changes.";
+"TWITTER_BLUE_SECTION_FOOTER_TITLE" = "You need to restart Twitter for your changes to apply.";
 
 "LAYOUT_CUS_SECTION_HEADER_TITLE" = "Layout options";
 "ORIG_TWEET_STYLE_OPTION_TITLE" = "Original Tweet layout";
@@ -177,7 +178,7 @@
 "ADVANCED_SEARCH_TITLE" = "Advanced search";
 "ADVANCED_SEARCH_DETAIL_TITLE" = "Enable more detailed search options.";
 
-"STOP_HIDING_TAB_BAR_TITLE" = "Keep tab bar visible";
+"STOP_HIDING_TAB_BAR_TITLE" = "Keep the tab bar visible";
 "STOP_HIDING_TAB_BAR_DETAIL_TITLE" = "Prevent the tab bar from disappearing when scrolling.";
 
 "CUSTOM_DIRECT_BACKGROUND_VIEW_TITLE" = "Set chat background";
@@ -187,8 +188,8 @@
 "CUSTOM_DIRECT_BACKGROUND_ALERT_OPTION_2" = "Use a color";
 "CUSTOM_DIRECT_BACKGROUND_ALERT_OPTION_3" = "Reset to default";
 
-"APP_ICON_TITLE" = "App icon";
-"APP_ICON_DETAIL_TITLE" = "Choose a custom icon for the app. All feature the bird logo.";
+"APP_ICON_TITLE" = "Change app icon";
+"APP_ICON_DETAIL_TITLE" = "Choose a custom icon for Twitter. All feature the bird logo.";
 "APP_ICON_NAV_TITLE" = "Select app icon"; 
 "APP_ICON_HEADER_TITLE" = "Choose a new app icon or theme for Twitter. You can change it anytime.";
 
@@ -196,5 +197,5 @@
 
 "SELECT_URL_HOST_AFTER_COPY_OPTION_TITLE" = "Select custom URL";
 
-"UPLOAD_CUSTOM_VOICE_OPTION_TITLE" = "Custom voice uploads"; 
-"UPLOAD_CUSTOM_VOICE_OPTION_DETAIL_TITLE" = "Record and upload custom voiceovers for your posts.";
+"UPLOAD_CUSTOM_VOICE_OPTION_TITLE" = "Enable Voice Tweets";
+"UPLOAD_CUSTOM_VOICE_OPTION_DETAIL_TITLE" = "Enable or disable the Voice Tweet feature, available only on the iOS Twitter app.";
