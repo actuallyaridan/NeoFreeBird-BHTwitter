@@ -17,7 +17,7 @@
 "CANCEL_BUTTON_TITLE" = "Cancel";
 
 "PROGRESS_DOWNLOADING_STATUS_TITLE" = "Downloading...";
-"FETCHING_PROGRESS_TITLE" = "Fetching media details...";
+"FETCHING_PROGRESS_TITLE" = "Getting media details...";
 
 "CUSTOM_FONTS_NAVIGATION_BUTTON_TITLE" = "Custom fonts";
 "CUSTOM_FONTS_NAVIGATION_TITLE" = "Select a font";
@@ -29,17 +29,17 @@
 "COPY_PROFILE_INFO_MENU_OPTION_2" = "Copy username";
 "COPY_PROFILE_INFO_MENU_OPTION_3" = "Copy full username";
 "COPY_PROFILE_INFO_MENU_OPTION_4" = "Copy bio link";
-"COPY_PROFILE_INFO_MENU_OPTION_5" = "Copy bio location";
+"COPY_PROFILE_INFO_MENU_OPTION_5" = "Copy location";
 
 "MAIN_SECTION_HEADER_TITLE" = "Tweaks";
 "DOWNLOAD_VIDEOS_OPTION_TITLE" = "Download media";
 "DOWNLOAD_VIDEOS_OPTION_DETAIL_TITLE" = "Save videos or GIFs by tapping the download button on Tweets.";
 
-"DIRECT_SAVE_OPTION_TITLE" = "Save automatically";
-"DIRECT_SAVE_OPTION_DETAIL_TITLE" = "Automatically save videos after downloading.";
+"DIRECT_SAVE_OPTION_TITLE" = "Add to Photos";
+"DIRECT_SAVE_OPTION_DETAIL_TITLE" = "Automatically add videos to your Photos when saving them.";
 
 "HIDE_ADS_OPTION_TITLE" = "Remove ads";
-"HIDE_ADS_OPTION_DETAIL_TITLE" = "Block all ads on Twitter for a cleaner experience.";
+"HIDE_ADS_OPTION_DETAIL_TITLE" = "Block all ads on Twitter for a better experience.";
 
 "HIDE_TOPICS_OPTION_TITLE" = "Hide topic Tweets";
 "HIDE_TOPICS_OPTION_DETAIL_TITLE" = "Stop seeing Tweets related to suggested topics.";
@@ -80,7 +80,7 @@
 "FOLLOW_CONFIRM_OPTION_DETAIL_TITLE" = "Ask for confirmation before following someone.";
 
 "PADLOCK_OPTION_TITLE" = "Lock Twitter";
-"PADLOCK_OPTION_DETAIL_TITLE" = "Protect access to Twitter using a passcode or Face ID.";
+"PADLOCK_OPTION_DETAIL_TITLE" = "Lock Twitter using a passcode or Face ID.";
 
 "DN_MODULAR_SEARCH_OPTION_TITLE" = "Enhanced DM search";
 "DN_MODULAR_SEARCH_OPTION_DETAIL_TITLE" = "Enable a more advanced search in direct messages.";
@@ -107,7 +107,7 @@
 "ALWAYS_OPEN_SAFARI_OPTION_DETAIL_TITLE" = "Open links in Safari or your default browser instead of the in-app browser.";
 
 "STRIP_URL_TRACKING_PARAMETERS_TITLE" = "Custom URLs";
-"STRIP_URL_TRACKING_PARAMETERS_DETAIL_TITLE" = "Change whih URL is used when copying Tweet links. This also removes tracking.";
+"STRIP_URL_TRACKING_PARAMETERS_DETAIL_TITLE" = "Change which URL is used when copying Tweet links. This also removes tracking.";
 
 "TWITTER_BLUE_SECTION_HEADER_TITLE" = "Twitter Blue features";
 "UNDO_TWEET_OPTION_TITLE" = "Undo Tweet";
@@ -171,9 +171,9 @@
 "FLEX_OPTION_DETAIL_TITLE" = "Show debugging options in the app.";
 
 "LEGAL_SECTION_HEADER_TITLE" = "Legal information";
-"LEGAL_BUTTON_TITLE" = "Credits";
+"LEGAL_BUTTON_TITLE" = "Thaks to...";
 
-"DEVELOPER_SECTION_HEADER_TITLE" = "Credits";
+"DEVELOPER_SECTION_HEADER_TITLE" = "Developers";
 
 "ADVANCED_SEARCH_TITLE" = "Advanced search";
 "ADVANCED_SEARCH_DETAIL_TITLE" = "Enable more detailed search options.";
