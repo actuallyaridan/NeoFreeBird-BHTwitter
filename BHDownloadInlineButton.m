@@ -40,24 +40,58 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     if (self != nil) {
         [self setInlineActionType:131];
         [self setTintColor:[UIColor colorFromHexString:@"6D6E70"]];
-        [self setImage:[UIImage imageName:@"incoming_stroke"] forState:UIControlStateNormal];
+        
+        // Load image explicitly from the bundle
+        UIImage *icon = [self _loadSVGImage:@"incoming_stroke"];
+        if (icon) {
+            [self setImage:icon forState:UIControlStateNormal];
+        } else {
+            NSLog(@"[Error] Failed to load image: incoming_stroke");
+        }
+
         [self addTarget:self action:@selector(DownloadHandler:) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
 }
+
 - (instancetype)initWithInlineActionType:(NSUInteger)arg1 options:(NSUInteger)arg2 overrideSize:(id)arg3 account:(id)arg4 {
     self = [super initWithFrame:CGRectZero];
     if (self != nil) {
         [self setInlineActionType:arg1];
         [self setTintColor:[UIColor colorFromHexString:@"6D6E70"]];
-        [self setImage:[UIImage imageName:@"incoming_stroke"] forState:UIControlStateNormal];
+        
+        // Load image explicitly from the bundle
+        UIImage *icon = [self _loadSVGImage:@"incoming_stroke"];
+        if (icon) {
+            [self setImage:icon forState:UIControlStateNormal];
+        } else {
+            NSLog(@"[Error] Failed to load image: incoming_stroke");
+        }
+
         [self addTarget:self action:@selector(DownloadHandler:) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
 }
-- (id)_t1_imageNamed:(id)arg1 fitSize:(CGSize)arg2 fillColor:(id)arg3 {
-    return nil;
+
+// Helper method to load SVG from the correct bundle path
+- (UIImage *)_loadSVGImage:(NSString *)imageName {
+    NSBundle *bundle = [NSBundle bundleWithIdentifier:@"com.your.bundle.identifier"]; // Adjust for your actual bundle
+    NSString *path = [bundle pathForResource:imageName ofType:@"svg" inDirectory:@"TwitterAppearance_TwitterAppearance.bundle/VectorImages/main"];
+    
+    if (!path) {
+        NSLog(@"[Error] Image path not found: %@", imageName);
+        return nil;
+    }
+    
+    NSData *imageData = [NSData dataWithContentsOfFile:path];
+    if (!imageData) {
+        NSLog(@"[Error] Failed to load image data for: %@", imageName);
+        return nil;
+    }
+
+    return [UIImage imageWithData:imageData]; // If using an SVG framework, render the image properly
 }
+
 - (void)DownloadHandler:(UIButton *)sender {
     NSAttributedString *AttString = [[NSAttributedString alloc] initWithString:[[BHTBundle sharedBundle] localizedStringForKey:@"DOWNLOAD_MENU_TITLE"] attributes:@{
         NSFontAttributeName: [[objc_getClass("TAEStandardFontGroup") sharedFontGroup] headline2BoldFont],
