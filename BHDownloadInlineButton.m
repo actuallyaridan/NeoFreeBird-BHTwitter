@@ -40,7 +40,7 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     if (self != nil) {
         [self setInlineActionType:131];
         [self setTintColor:[UIColor colorFromHexString:@"6D6E70"]];
-        [self setImage:[UIImage imageNamed:@"incoming_stroke"] forState:UIControlStateNormal];
+        [self setImage:[UIImage imageName:@"incoming_stroke"] forState:UIControlStateNormal];
         [self addTarget:self action:@selector(DownloadHandler:) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
@@ -50,7 +50,7 @@ static const NSString *KEY_HIT_TEST_EDGE_INSETS = @"HitTestEdgeInsets";
     if (self != nil) {
         [self setInlineActionType:arg1];
         [self setTintColor:[UIColor colorFromHexString:@"6D6E70"]];
-        [self setImage:[UIImage imageNamed:@"incoming_stroke"] forState:UIControlStateNormal];
+        [self setImage:[UIImage imageName:@"incoming_stroke"] forState:UIControlStateNormal];
         [self addTarget:self action:@selector(DownloadHandler:) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
