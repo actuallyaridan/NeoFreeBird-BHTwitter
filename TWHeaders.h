@@ -24,6 +24,7 @@
 #import "ffmpeg/FFprobeKit.h"
 #import "ffmpeg/MediaInformationSession.h"
 #import "ffmpeg/MediaInformation.h"
+#import <math.h>
 
 
 typedef UIFont *(*BH_BaseImp)(id,SEL,...);
@@ -588,8 +589,8 @@ static UIViewController * _Nonnull topMostController() {
     return topController;
 }
 
-// Declare TFNNavigationBar as a subclass of UIView
-@interface TFNNavigationBar : UIView
+// Declare TFNNavigationBar properly with all necessary inheritance
+@interface TFNNavigationBar : UINavigationBar
 - (UIViewController *)_viewControllerForAncestor;
 - (BOOL)isTimelineViewController;
 @end
