@@ -102,18 +102,6 @@ static NSString *_lastCopiedURL;
 @property(retain, nonatomic) UIWindow *window;
 @end
 
-#pragma mark - Base Classes and Categories
-
-@interface TFNNavigationBar : UIView
-- (UIViewController *)_viewControllerForAncestor;
-@end
-
-#pragma mark - Twitter Class Declarations
-
-@interface T1AppDelegate : UIResponder <UIApplicationDelegate>
-@property(retain, nonatomic) UIWindow *window;
-@end
-
 @interface TTMAssetVideoFile: NSObject
 @property (nonatomic, copy, readonly) NSString *filePath;
 @property (nonatomic, assign, readonly) CGFloat duration;
