@@ -589,25 +589,18 @@ static UIViewController * _Nonnull topMostController() {
     return topController;
 }
 
-// Declare TFNNavigationBar properly with all necessary inheritance
-@interface TFNNavigationBar (Themerestoretwt)
-- (UIViewController *)_viewControllerForAncestor;
-- (BOOL)isTimelineViewController;
+// Add these near where other categories are defined in TWHeaders.h
+@interface TFNNavigationBar (IconTheming)
+- (BOOL)shouldHideTwitterIcon;
 @property (nonatomic, assign) CGFloat originalIconY;
 @end
 
-// Forward declarations for Twitter's view controllers
-@interface TFSTimelineViewController : UIViewController
-@end
-
-// Add a category to UIImageView to track if we've applied the tint
-@interface UIImageView (Themerestoretwt)
+@interface UIImageView (IconTheming)
 @property (nonatomic, assign) BOOL hasAppliedTint;
 @end
 
-
-@implementation UIImageView (Themerestoretwt)
-
+// Add the implementations
+@implementation UIImageView (IconTheming)
 - (void)setHasAppliedTint:(BOOL)hasAppliedTint {
     objc_setAssociatedObject(self, @selector(hasAppliedTint), @(hasAppliedTint), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -615,11 +608,9 @@ static UIViewController * _Nonnull topMostController() {
 - (BOOL)hasAppliedTint {
     return [objc_getAssociatedObject(self, @selector(hasAppliedTint)) boolValue];
 }
-
 @end
-         
-@implementation TFNNavigationBar (Themerestoretwt)
 
+@implementation TFNNavigationBar (IconTheming)
 - (void)setOriginalIconY:(CGFloat)originalIconY {
     objc_setAssociatedObject(self, @selector(originalIconY), @(originalIconY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -629,12 +620,26 @@ static UIViewController * _Nonnull topMostController() {
     return value ? [value floatValue] : 0;
 }
 
+- (BOOL)shouldHideTwitterIcon {
+    UIViewController *ancestor = [self _viewControllerForAncestor];
+    if (!ancestor) return YES;
+    
+    UINavigationController *navController = ancestor.navigationController ?: (UINavigationController *)ancestor;
+    if (!navController) return YES;
+    
+    UIViewController *topViewController = navController.topViewController;
+    if (!topViewController) return YES;
+    
+    NSString *topViewControllerClassName = NSStringFromClass([topViewController class]);
+    
+    if ([topViewControllerClassName isEqualToString:@"T1GenericSettingsViewController"] ||
+        [topViewControllerClassName isEqualToString:@"T1VoiceTabViewController"]) {
+        return YES;
+    }
+    
+    BOOL isMainTimelineNav = [NSStringFromClass([navController class]) isEqualToString:@"T1TimelineNavigationController"];
+    BOOL isRootLevel = navController.viewControllers.count <= 1;
+    
+    return !(isMainTimelineNav && isRootLevel);
+}
 @end
-
-
-// Modify the TFNNavigationBar interface to remove the property
-@interface TFNNavigationBar : UIView
-- (UIViewController *)_viewControllerForAncestor;
-- (BOOL)isTimelineViewController;
-@end
-
