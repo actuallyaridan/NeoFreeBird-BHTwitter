@@ -36,15 +36,13 @@ static NSString *_lastCopiedURL;
 
 #pragma mark - Base Classes and Categories
 
-// Base TFNNavigationBar declaration
-@interface TFNNavigationBar : UIView
-- (UIViewController *)_viewControllerForAncestor;
-@end
+@class TFNNavigationBar;
 
-// Categories
+// Then declare our category
 @interface TFNNavigationBar (IconTheming)
 - (BOOL)shouldHideTwitterIcon;
 @property (nonatomic, assign) CGFloat originalIconY;
+- (UIViewController *)_viewControllerForAncestor;  // Add this method declaration here
 @end
 
 @interface UIImageView (IconTheming)
