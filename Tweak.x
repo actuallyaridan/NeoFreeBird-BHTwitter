@@ -1990,6 +1990,8 @@ static NSDate *lastCookieRefresh              = nil;
 
 %hook TFNNavigationBar
 
+%property (nonatomic, assign) CGFloat originalIconY;
+
 %new
 - (BOOL)isTimelineViewController {
     UIViewController *ancestor = [self _viewControllerForAncestor];
@@ -2034,6 +2036,16 @@ static NSDate *lastCookieRefresh              = nil;
                                 fabs(imageView.frame.origin.x - 173.0) < 1.0);
             
             if (isTargetFrame) {
+                // Store the original Y position if we haven't already
+                if (self.originalIconY == 0) {
+                    self.originalIconY = imageView.frame.origin.y;
+                }
+                
+                // Keep the icon at its original position
+                CGRect frame = imageView.frame;
+                frame.origin.y = self.originalIconY;
+                imageView.frame = frame;
+                
                 if (isTimeline) {
                     // Theme the icon with the current accent color
                     imageView.tintColor = BHTCurrentAccentColor();
