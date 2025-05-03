@@ -1990,8 +1990,6 @@ static NSDate *lastCookieRefresh              = nil;
 
 %hook TFNNavigationBar
 
-%property (nonatomic, assign) CGFloat originalIconY;
-
 %new
 - (BOOL)isTimelineViewController {
     UIViewController *ancestor = [self _viewControllerForAncestor];
