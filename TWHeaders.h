@@ -592,7 +592,6 @@ static UIViewController * _Nonnull topMostController() {
 @interface TFNNavigationBar : UIView
 - (UIViewController *)_viewControllerForAncestor;
 - (BOOL)isTimelineViewController;
-@property (nonatomic, assign) CGFloat originalIconY;
 @end
 
 // Forward declarations for Twitter's view controllers
@@ -616,3 +615,17 @@ static UIViewController * _Nonnull topMostController() {
 }
 
 @end
+         
+@implementation TFNNavigationBar (Themerestoretwt)
+
+- (void)setOriginalIconY:(CGFloat)originalIconY {
+    objc_setAssociatedObject(self, @selector(originalIconY), @(originalIconY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (CGFloat)originalIconY {
+    NSNumber *value = objc_getAssociatedObject(self, @selector(originalIconY));
+    return value ? [value floatValue] : 0;
+}
+
+@end
+
