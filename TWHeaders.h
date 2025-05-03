@@ -34,12 +34,14 @@ static id _PasteboardChangeObserver;
 static NSDictionary<NSString*, NSArray<NSString*>*> *trackingParams;
 static NSString *_lastCopiedURL;
 
-// Base class declarations
+#pragma mark - Base Classes and Categories
+
+// Base TFNNavigationBar declaration
 @interface TFNNavigationBar : UIView
 - (UIViewController *)_viewControllerForAncestor;
 @end
 
-// Categories for our tweak functionality
+// Categories
 @interface TFNNavigationBar (IconTheming)
 - (BOOL)shouldHideTwitterIcon;
 @property (nonatomic, assign) CGFloat originalIconY;
@@ -49,7 +51,7 @@ static NSString *_lastCopiedURL;
 @property (nonatomic, assign) BOOL hasAppliedTint;
 @end
 
-// Category implementations
+// Category Implementations
 @implementation UIImageView (IconTheming)
 - (void)setHasAppliedTint:(BOOL)hasAppliedTint {
     objc_setAssociatedObject(self, @selector(hasAppliedTint), @(hasAppliedTint), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -94,75 +96,16 @@ static NSString *_lastCopiedURL;
 }
 @end
 
-// Twitter class declarations
+#pragma mark - Twitter Class Declarations
+
 @interface T1AppDelegate : UIResponder <UIApplicationDelegate>
 @property(retain, nonatomic) UIWindow *window;
 @end
-
-// Static variables
-typedef UIFont *(*BH_BaseImp)(id,SEL,...);
-static NSMutableDictionary<NSString*, NSValue*>* originalFontsIMP;
-static id _PasteboardChangeObserver;
-static NSDictionary<NSString*, NSArray<NSString*>*> *trackingParams;
-static NSString *_lastCopiedURL;
 
 #pragma mark - Base Classes and Categories
 
 @interface TFNNavigationBar : UIView
 - (UIViewController *)_viewControllerForAncestor;
-@end
-
-@interface TFNNavigationBar (IconTheming)
-- (BOOL)shouldHideTwitterIcon;
-@property (nonatomic, assign) CGFloat originalIconY;
-@end
-
-@interface UIImageView (IconTheming)
-@property (nonatomic, assign) BOOL hasAppliedTint;
-@end
-
-@implementation UIImageView (IconTheming)
-- (void)setHasAppliedTint:(BOOL)hasAppliedTint {
-    objc_setAssociatedObject(self, @selector(hasAppliedTint), @(hasAppliedTint), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (BOOL)hasAppliedTint {
-    return [objc_getAssociatedObject(self, @selector(hasAppliedTint)) boolValue];
-}
-@end
-
-@implementation TFNNavigationBar (IconTheming)
-- (void)setOriginalIconY:(CGFloat)originalIconY {
-    objc_setAssociatedObject(self, @selector(originalIconY), @(originalIconY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (CGFloat)originalIconY {
-    NSNumber *value = objc_getAssociatedObject(self, @selector(originalIconY));
-    return value ? [value floatValue] : 0;
-}
-
-- (BOOL)shouldHideTwitterIcon {
-    UIViewController *ancestor = [self _viewControllerForAncestor];
-    if (!ancestor) return YES;
-    
-    UINavigationController *navController = ancestor.navigationController ?: (UINavigationController *)ancestor;
-    if (!navController) return YES;
-    
-    UIViewController *topViewController = navController.topViewController;
-    if (!topViewController) return YES;
-    
-    NSString *topViewControllerClassName = NSStringFromClass([topViewController class]);
-    
-    if ([topViewControllerClassName isEqualToString:@"T1GenericSettingsViewController"] ||
-        [topViewControllerClassName isEqualToString:@"T1VoiceTabViewController"]) {
-        return YES;
-    }
-    
-    BOOL isMainTimelineNav = [NSStringFromClass([navController class]) isEqualToString:@"T1TimelineNavigationController"];
-    BOOL isRootLevel = navController.viewControllers.count <= 1;
-    
-    return !(isMainTimelineNav && isRootLevel);
-}
 @end
 
 #pragma mark - Twitter Class Declarations
