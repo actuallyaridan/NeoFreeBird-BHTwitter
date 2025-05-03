@@ -2000,32 +2000,6 @@ static CGFloat getOriginalIconY(UIView *view) {
 
 %hook TFNNavigationBar
 
-%new
-- (BOOL)shouldHideTwitterIcon {
-    UIViewController *ancestor = [self _viewControllerForAncestor];
-    if (!ancestor) return YES;
-    
-    UINavigationController *navController = ancestor.navigationController ?: (UINavigationController *)ancestor;
-    if (!navController) return YES;
-    
-    UIViewController *topViewController = navController.topViewController;
-    if (!topViewController) return YES;
-    
-    NSString *topViewControllerClassName = NSStringFromClass([topViewController class]);
-    
-    // Hide on Settings or Voice tab
-    if ([topViewControllerClassName isEqualToString:@"T1GenericSettingsViewController"] ||
-        [topViewControllerClassName isEqualToString:@"T1VoiceTabViewController"]) {
-        return YES;
-    }
-    
-    // Show only on main timeline
-    BOOL isMainTimelineNav = [NSStringFromClass([navController class]) isEqualToString:@"T1TimelineNavigationController"];
-    BOOL isRootLevel = navController.viewControllers.count <= 1;
-    
-    return !(isMainTimelineNav && isRootLevel);
-}
-
 - (void)layoutSubviews {
     %orig;
     
@@ -2040,13 +2014,13 @@ static CGFloat getOriginalIconY(UIView *view) {
         if (!isTwitterIcon) continue;
         
         // Store original position
-        if (getOriginalIconY(self) == 0) {
-            setOriginalIconY(self, imageView.frame.origin.y);
+        if (self.originalIconY == 0) {
+            self.originalIconY = imageView.frame.origin.y;
         }
         
         // Maintain position
         CGRect frame = imageView.frame;
-        frame.origin.y = getOriginalIconY(self);
+        frame.origin.y = self.originalIconY;
         imageView.frame = frame;
         
         // Handle visibility and theming
