@@ -38,6 +38,10 @@ static NSString *_lastCopiedURL;
 
 @class TFNNavigationBar;
 
+@interface TFNNavigationBar : UIView
+- (UIViewController *)_viewControllerForAncestor;
+@end
+
 // Then declare our category
 @interface TFNNavigationBar (IconTheming)
 - (BOOL)shouldHideTwitterIcon;
