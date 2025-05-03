@@ -38,7 +38,7 @@ static NSString *_lastCopiedURL;
 
 @class TFNNavigationBar;
 
-@interface TFNNavigationBar : UIView
+@interface TFNNavigationBar : UINavigationBar
 - (UIViewController *)_viewControllerForAncestor;
 @end
 
