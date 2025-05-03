@@ -2,7 +2,8 @@
 //  TWHeaders.h
 //  BHTwitter
 //
-//  Created by BandarHelal
+//  Created by BandarHelal on 2025-05-03
+//  Modified by nyathea on 2025-05-03
 //
 
 #import <objc/runtime.h>
@@ -26,22 +27,153 @@
 #import "ffmpeg/MediaInformation.h"
 #import <math.h>
 
-
+// Static variables
 typedef UIFont *(*BH_BaseImp)(id,SEL,...);
 static NSMutableDictionary<NSString*, NSValue*>* originalFontsIMP;
 static id _PasteboardChangeObserver;
 static NSDictionary<NSString*, NSArray<NSString*>*> *trackingParams;
 static NSString *_lastCopiedURL;
 
+// Base class declarations
+@interface TFNNavigationBar : UIView
+- (UIViewController *)_viewControllerForAncestor;
+@end
+
+// Categories for our tweak functionality
+@interface TFNNavigationBar (IconTheming)
+- (BOOL)shouldHideTwitterIcon;
+@property (nonatomic, assign) CGFloat originalIconY;
+@end
+
+@interface UIImageView (IconTheming)
+@property (nonatomic, assign) BOOL hasAppliedTint;
+@end
+
+// Category implementations
+@implementation UIImageView (IconTheming)
+- (void)setHasAppliedTint:(BOOL)hasAppliedTint {
+    objc_setAssociatedObject(self, @selector(hasAppliedTint), @(hasAppliedTint), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)hasAppliedTint {
+    return [objc_getAssociatedObject(self, @selector(hasAppliedTint)) boolValue];
+}
+@end
+
+@implementation TFNNavigationBar (IconTheming)
+- (void)setOriginalIconY:(CGFloat)originalIconY {
+    objc_setAssociatedObject(self, @selector(originalIconY), @(originalIconY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (CGFloat)originalIconY {
+    NSNumber *value = objc_getAssociatedObject(self, @selector(originalIconY));
+    return value ? [value floatValue] : 0;
+}
+
+- (BOOL)shouldHideTwitterIcon {
+    UIViewController *ancestor = [self _viewControllerForAncestor];
+    if (!ancestor) return YES;
+    
+    UINavigationController *navController = ancestor.navigationController ?: (UINavigationController *)ancestor;
+    if (!navController) return YES;
+    
+    UIViewController *topViewController = navController.topViewController;
+    if (!topViewController) return YES;
+    
+    NSString *topViewControllerClassName = NSStringFromClass([topViewController class]);
+    
+    if ([topViewControllerClassName isEqualToString:@"T1GenericSettingsViewController"] ||
+        [topViewControllerClassName isEqualToString:@"T1VoiceTabViewController"]) {
+        return YES;
+    }
+    
+    BOOL isMainTimelineNav = [NSStringFromClass([navController class]) isEqualToString:@"T1TimelineNavigationController"];
+    BOOL isRootLevel = navController.viewControllers.count <= 1;
+    
+    return !(isMainTimelineNav && isRootLevel);
+}
+@end
+
+// Twitter class declarations
 @interface T1AppDelegate : UIResponder <UIApplicationDelegate>
 @property(retain, nonatomic) UIWindow *window;
 @end
 
+// Static variables
+typedef UIFont *(*BH_BaseImp)(id,SEL,...);
+static NSMutableDictionary<NSString*, NSValue*>* originalFontsIMP;
+static id _PasteboardChangeObserver;
+static NSDictionary<NSString*, NSArray<NSString*>*> *trackingParams;
+static NSString *_lastCopiedURL;
+
+#pragma mark - Base Classes and Categories
+
+@interface TFNNavigationBar : UIView
+- (UIViewController *)_viewControllerForAncestor;
+@end
+
+@interface TFNNavigationBar (IconTheming)
+- (BOOL)shouldHideTwitterIcon;
+@property (nonatomic, assign) CGFloat originalIconY;
+@end
+
+@interface UIImageView (IconTheming)
+@property (nonatomic, assign) BOOL hasAppliedTint;
+@end
+
+@implementation UIImageView (IconTheming)
+- (void)setHasAppliedTint:(BOOL)hasAppliedTint {
+    objc_setAssociatedObject(self, @selector(hasAppliedTint), @(hasAppliedTint), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)hasAppliedTint {
+    return [objc_getAssociatedObject(self, @selector(hasAppliedTint)) boolValue];
+}
+@end
+
+@implementation TFNNavigationBar (IconTheming)
+- (void)setOriginalIconY:(CGFloat)originalIconY {
+    objc_setAssociatedObject(self, @selector(originalIconY), @(originalIconY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (CGFloat)originalIconY {
+    NSNumber *value = objc_getAssociatedObject(self, @selector(originalIconY));
+    return value ? [value floatValue] : 0;
+}
+
+- (BOOL)shouldHideTwitterIcon {
+    UIViewController *ancestor = [self _viewControllerForAncestor];
+    if (!ancestor) return YES;
+    
+    UINavigationController *navController = ancestor.navigationController ?: (UINavigationController *)ancestor;
+    if (!navController) return YES;
+    
+    UIViewController *topViewController = navController.topViewController;
+    if (!topViewController) return YES;
+    
+    NSString *topViewControllerClassName = NSStringFromClass([topViewController class]);
+    
+    if ([topViewControllerClassName isEqualToString:@"T1GenericSettingsViewController"] ||
+        [topViewControllerClassName isEqualToString:@"T1VoiceTabViewController"]) {
+        return YES;
+    }
+    
+    BOOL isMainTimelineNav = [NSStringFromClass([navController class]) isEqualToString:@"T1TimelineNavigationController"];
+    BOOL isRootLevel = navController.viewControllers.count <= 1;
+    
+    return !(isMainTimelineNav && isRootLevel);
+}
+@end
+
+#pragma mark - Twitter Class Declarations
+
+@interface T1AppDelegate : UIResponder <UIApplicationDelegate>
+@property(retain, nonatomic) UIWindow *window;
+@end
 
 @interface TTMAssetVideoFile: NSObject
 @property (nonatomic, copy, readonly) NSString *filePath;
 @property (nonatomic, assign, readonly) CGFloat duration;
-
 @end
 
 @interface TTMAssetVoiceRecording: TTMAssetVideoFile
@@ -135,6 +267,7 @@ static NSString *_lastCopiedURL;
 @interface TTSSearchTypeaheadViewController : TFNItemsDataViewController
 - (void)clearActionControlWantsClear:(id)arg1;
 @end
+
 @interface T1SearchTypeaheadViewController : TFNItemsDataViewController
 - (void)clearActionControlWantsClear:(id)arg1;
 @end
@@ -233,6 +366,7 @@ static NSString *_lastCopiedURL;
 
 @protocol T1StatusInlineActionButtonDelegate <NSObject>
 @end
+
 @protocol TTAStatusInlineActionButtonDelegate <NSObject>
 @end
 
@@ -251,23 +385,6 @@ static NSString *_lastCopiedURL;
 @end
 
 @interface T1TweetDetailsFocalStatusViewTableViewCell : T1StatusCell
-@end
-
-// Add this BEFORE the TFNNavigationController declaration
-@interface TFNNavigationBar : UIView
-- (UIViewController *)_viewControllerForAncestor;
-@end
-
-@interface TFNNavigationController : UINavigationController
-@end
-
-@interface UIImageView (IconTheming)
-@property (nonatomic, assign) BOOL hasAppliedTint;
-@end
-
-- (BOOL)hasAppliedTint {
-    return [objc_getAssociatedObject(self, @selector(hasAppliedTint)) boolValue];
-}
 @end
 
 @interface TFSTwitterEntityMediaVideoVariant : NSObject
@@ -353,7 +470,6 @@ static NSString *_lastCopiedURL;
 @property(readonly, nonatomic) id <T1PlayerSessionProducible> sessionProducible;
 @end
 
-
 @protocol T1InlineMediaViewModel <NSObject>
 @property(nonatomic, readonly) T1PlayerSessionProducer *playerSessionProducer;
 @end
@@ -380,9 +496,8 @@ static NSString *_lastCopiedURL;
 
 @interface T1DirectMessageEntryMediaCell : T1DirectMessageEntryBaseCell
 @property (nonatomic, strong) JGProgressHUD *hud;
-// @property (nonatomic, strong) NSURL *ffmepgExportURL;
 - (void)mediaUploadProgress:(id)arg1;
-@property(nonatomic, readonly) T1InlineMediaView *inlineMediaView; // @synthesize inlineMediaView;
+@property(nonatomic, readonly) T1InlineMediaView *inlineMediaView;
 - (void)updateConstraints;
 - (_Bool)accessibilityActivate;
 - (void)dealloc;
@@ -423,7 +538,7 @@ static NSString *_lastCopiedURL;
 @end
 
 @interface T1StatusBodyTextView : UIView
-@property(readonly, nonatomic) id viewModel; // @synthesize viewModel=_viewModel;
+@property(readonly, nonatomic) id viewModel;
 @end
 
 @interface T1RichTextFormatViewController : UIViewController
@@ -442,6 +557,8 @@ static NSString *_lastCopiedURL;
 @property(nonatomic, readonly) NSDictionary *scribeItem;
 @end
 
+#pragma mark - FLEX Alert Declarations
+
 @class FLEXAlert, FLEXAlertAction;
 
 typedef void (^FLEXAlertReveal)(void);
@@ -456,72 +573,36 @@ typedef FLEXAlertAction * _Nonnull (^FLEXAlertActionBOOLProperty)(BOOL);
 typedef FLEXAlertAction * _Nonnull (^FLEXAlertActionHandler)(void(^handler)(NSArray<NSString *> *strings));
 
 @interface FLEXAlert : NSObject
-
-/// Shows a simple alert with one button which says "Dismiss"
 + (void)showAlert:(NSString * _Nullable)title message:(NSString * _Nullable)message from:(UIViewController *)viewController;
-
-/// Shows a simple alert with no buttons and only a title, for half a second
 + (void)showQuickAlert:(NSString *)title from:(UIViewController *)viewController;
-
-/// Construct and display an alert
 + (void)makeAlert:(FLEXAlertBuilder)block showFrom:(UIViewController *)viewController;
-/// Construct and display an action sheet-style alert
-+ (void)makeSheet:(FLEXAlertBuilder)block
-         showFrom:(UIViewController *)viewController
-           source:(id)viewOrBarItem;
-
-/// Construct an alert
++ (void)makeSheet:(FLEXAlertBuilder)block showFrom:(UIViewController *)viewController source:(id)viewOrBarItem;
 + (UIAlertController *)makeAlert:(FLEXAlertBuilder)block;
-/// Construct an action sheet-style alert
 + (UIAlertController *)makeSheet:(FLEXAlertBuilder)block;
-
-/// Set the alert's title.
-///
-/// Call in succession to append strings to the title.
 @property (nonatomic, readonly) FLEXAlertStringProperty title;
-/// Set the alert's message.
-///
-/// Call in succession to append strings to the message.
 @property (nonatomic, readonly) FLEXAlertStringProperty message;
-/// Add a button with a given title with the default style and no action.
 @property (nonatomic, readonly) FLEXAlertAddAction button;
-/// Add a text field with the given (optional) placeholder text.
 @property (nonatomic, readonly) FLEXAlertStringArg textField;
-/// Add and configure the given text field.
-///
-/// Use this if you need to more than set the placeholder, such as
-/// supply a delegate, make it secure entry, or change other attributes.
 @property (nonatomic, readonly) FLEXAlertTextField configuredTextField;
-
 @end
 
 @interface FLEXAlertAction : NSObject
-
-/// Set the action's title.
-///
-/// Call in succession to append strings to the title.
 @property (nonatomic, readonly) FLEXAlertActionStringProperty title;
-/// Make the action destructive. It appears with red text.
 @property (nonatomic, readonly) FLEXAlertActionProperty destructiveStyle;
-/// Make the action cancel-style. It appears with a bolder font.
 @property (nonatomic, readonly) FLEXAlertActionProperty cancelStyle;
-/// Enable or disable the action. Enabled by default.
 @property (nonatomic, readonly) FLEXAlertActionBOOLProperty enabled;
-/// Give the button an action. The action takes an array of text field strings.
 @property (nonatomic, readonly) FLEXAlertActionHandler handler;
-/// Access the underlying UIAlertAction, should you need to change it while
-/// the encompassing alert is being displayed. For example, you may want to
-/// enable or disable a button based on the input of some text fields in the alert.
-/// Do not call this more than once per instance.
 @property (nonatomic, readonly) UIAlertAction *action;
-
 @end
+
 @interface FLEXManager : NSObject
 + (instancetype)sharedManager;
 - (void)showExplorer;
 - (void)hideExplorer;
 - (void)toggleExplorer;
 @end
+
+#pragma mark - Color Settings
 
 @protocol TAEColorPalette
 - (id)colorPalette;
@@ -539,6 +620,8 @@ typedef FLEXAlertAction * _Nonnull (^FLEXAlertActionHandler)(void(^handler)(NSAr
 + (instancetype)sharedSettings;
 @end
 
+#pragma mark - Helper Functions
+
 static void BH_changeTwitterColor(NSInteger colorID) {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     TAEColorSettings *colorSettings = [objc_getClass("TAEColorSettings") sharedSettings];
@@ -546,6 +629,7 @@ static void BH_changeTwitterColor(NSInteger colorID) {
     [defaults setObject:@(colorID) forKey:@"T1ColorSettingsPrimaryColorOptionKey"];
     [colorSettings setPrimaryColorOption:colorID];
 }
+
 static UIImage *BH_imageFromView(UIView *view) {
     TAEColorSettings *colorSettings = [objc_getClass("TAEColorSettings") sharedSettings];
     bool opaque = [colorSettings.currentColorPalette isDark] ? true : false;
@@ -557,9 +641,8 @@ static UIImage *BH_imageFromView(UIView *view) {
     return img;
 }
 
-static  UIFont * _Nullable BH_getDefaultFont(UIFont *font) {
+static UIFont * _Nullable BH_getDefaultFont(UIFont *font) {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"en_font"]) {
-        // https://stackoverflow.com/a/20515367/16619237
         UIFontDescriptorSymbolicTraits fontDescriptorSymbolicTraits = font.fontDescriptor.symbolicTraits;
         BOOL isBold = (fontDescriptorSymbolicTraits & UIFontDescriptorTraitBold) != 0;
 
@@ -571,17 +654,15 @@ static  UIFont * _Nullable BH_getDefaultFont(UIFont *font) {
     }
     return nil;
 }
+
 static BOOL isDeviceLanguageRTL() {
     return [NSParagraphStyle _defaultWritingDirection] == NSWritingDirectionRightToLeft;
 }
+
 static BOOL is_iPad() {
-    if ([(NSString *)[UIDevice currentDevice].model hasPrefix:@"iPad"]) {
-        return YES;
-    }
-    return NO;
+    return [(NSString *)[UIDevice currentDevice].model hasPrefix:@"iPad"];
 }
 
-// https://github.com/julioverne/MImport/blob/0275405812ff41ed2ca56e98f495fd05c38f41f2/mimporthook/MImport.xm#L59
 static UIViewController * _Nullable _topMostController(UIViewController * _Nonnull cont) {
     UIViewController *topController = cont;
     while (topController.presentedViewController) {
@@ -595,6 +676,7 @@ static UIViewController * _Nullable _topMostController(UIViewController * _Nonnu
     }
     return (topController != cont ? topController : nil);
 }
+
 static UIViewController * _Nonnull topMostController() {
     UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
     UIViewController *next = nil;
@@ -603,44 +685,3 @@ static UIViewController * _Nonnull topMostController() {
     }
     return topController;
 }
-
-@implementation TFNNavigationBar (IconTheming)
-- (void)setOriginalIconY:(CGFloat)originalIconY {
-    objc_setAssociatedObject(self, @selector(originalIconY), @(originalIconY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (CGFloat)originalIconY {
-    NSNumber *value = objc_getAssociatedObject(self, @selector(originalIconY));
-    return value ? [value floatValue] : 0;
-}
-
-- (BOOL)shouldHideTwitterIcon {
-    UIViewController *ancestor = [self _viewControllerForAncestor];
-    if (!ancestor) return YES;
-    
-    UINavigationController *navController = ancestor.navigationController ?: (UINavigationController *)ancestor;
-    if (!navController) return YES;
-    
-    UIViewController *topViewController = navController.topViewController;
-    if (!topViewController) return YES;
-    
-    NSString *topViewControllerClassName = NSStringFromClass([topViewController class]);
-    
-    if ([topViewControllerClassName isEqualToString:@"T1GenericSettingsViewController"] ||
-        [topViewControllerClassName isEqualToString:@"T1VoiceTabViewController"]) {
-        return YES;
-    }
-    
-    BOOL isMainTimelineNav = [NSStringFromClass([navController class]) isEqualToString:@"T1TimelineNavigationController"];
-    BOOL isRootLevel = navController.viewControllers.count <= 1;
-    
-    return !(isMainTimelineNav && isRootLevel);
-}
-@end
-// Add the implementations
-@implementation UIImageView (IconTheming)
-- (void)setHasAppliedTint:(BOOL)hasAppliedTint {
-    objc_setAssociatedObject(self, @selector(hasAppliedTint), @(hasAppliedTint), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-
