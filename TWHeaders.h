@@ -253,6 +253,23 @@ static NSString *_lastCopiedURL;
 @interface T1TweetDetailsFocalStatusViewTableViewCell : T1StatusCell
 @end
 
+// Add this BEFORE the TFNNavigationController declaration
+@interface TFNNavigationBar : UIView
+- (UIViewController *)_viewControllerForAncestor;
+@end
+
+@interface TFNNavigationController : UINavigationController
+@end
+
+@interface UIImageView (IconTheming)
+@property (nonatomic, assign) BOOL hasAppliedTint;
+@end
+
+- (BOOL)hasAppliedTint {
+    return [objc_getAssociatedObject(self, @selector(hasAppliedTint)) boolValue];
+}
+@end
+
 @interface TFSTwitterEntityMediaVideoVariant : NSObject
 @property(readonly, copy, nonatomic) NSString *contentType;
 @property(readonly, copy, nonatomic) NSString *url;
@@ -312,8 +329,6 @@ static NSString *_lastCopiedURL;
 @interface TTACoreStatusViewModel : NSObject
 @property(nonatomic, readonly) id tweet;
 @end
-
-
 
 @interface TFNButtonBarView : UIView
 @property(nonatomic) double trailingViewsSpacing;
@@ -589,27 +604,6 @@ static UIViewController * _Nonnull topMostController() {
     return topController;
 }
 
-// Add these near where other categories are defined in TWHeaders.h
-@interface TFNNavigationBar (IconTheming)
-- (BOOL)shouldHideTwitterIcon;
-@property (nonatomic, assign) CGFloat originalIconY;
-@end
-
-@interface UIImageView (IconTheming)
-@property (nonatomic, assign) BOOL hasAppliedTint;
-@end
-
-// Add the implementations
-@implementation UIImageView (IconTheming)
-- (void)setHasAppliedTint:(BOOL)hasAppliedTint {
-    objc_setAssociatedObject(self, @selector(hasAppliedTint), @(hasAppliedTint), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (BOOL)hasAppliedTint {
-    return [objc_getAssociatedObject(self, @selector(hasAppliedTint)) boolValue];
-}
-@end
-
 @implementation TFNNavigationBar (IconTheming)
 - (void)setOriginalIconY:(CGFloat)originalIconY {
     objc_setAssociatedObject(self, @selector(originalIconY), @(originalIconY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -643,3 +637,10 @@ static UIViewController * _Nonnull topMostController() {
     return !(isMainTimelineNav && isRootLevel);
 }
 @end
+// Add the implementations
+@implementation UIImageView (IconTheming)
+- (void)setHasAppliedTint:(BOOL)hasAppliedTint {
+    objc_setAssociatedObject(self, @selector(hasAppliedTint), @(hasAppliedTint), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+
