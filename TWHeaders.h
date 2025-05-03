@@ -590,9 +590,10 @@ static UIViewController * _Nonnull topMostController() {
 }
 
 // Declare TFNNavigationBar properly with all necessary inheritance
-@interface TFNNavigationBar : UINavigationBar
+@interface TFNNavigationBar (Themerestoretwt)
 - (UIViewController *)_viewControllerForAncestor;
 - (BOOL)isTimelineViewController;
+@property (nonatomic, assign) CGFloat originalIconY;
 @end
 
 // Forward declarations for Twitter's view controllers
@@ -628,5 +629,12 @@ static UIViewController * _Nonnull topMostController() {
     return value ? [value floatValue] : 0;
 }
 
+@end
+
+
+// Modify the TFNNavigationBar interface to remove the property
+@interface TFNNavigationBar : UIView
+- (UIViewController *)_viewControllerForAncestor;
+- (BOOL)isTimelineViewController;
 @end
 
