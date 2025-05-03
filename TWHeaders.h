@@ -592,6 +592,7 @@ static UIViewController * _Nonnull topMostController() {
 @interface TFNNavigationBar : UIView
 - (UIViewController *)_viewControllerForAncestor;
 - (BOOL)isTimelineViewController;
+@property (nonatomic, assign) CGFloat originalIconY;
 @end
 
 // Forward declarations for Twitter's view controllers
