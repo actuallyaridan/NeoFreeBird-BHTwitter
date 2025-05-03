@@ -1988,6 +1988,9 @@ static NSDate *lastCookieRefresh              = nil;
 
 // Dirty hax for making the Nav Icon themeable again.
 
+// Store the Y position using a static variable instead of a property
+static CGFloat originalIconY = 0;
+
 %hook TFNNavigationBar
 
 %new
@@ -2035,13 +2038,13 @@ static NSDate *lastCookieRefresh              = nil;
             
             if (isTargetFrame) {
                 // Store the original Y position if we haven't already
-                if (self.originalIconY == 0) {
-                    self.originalIconY = imageView.frame.origin.y;
+                if (originalIconY == 0) {
+                    originalIconY = imageView.frame.origin.y;
                 }
                 
                 // Keep the icon at its original position
                 CGRect frame = imageView.frame;
-                frame.origin.y = self.originalIconY;
+                frame.origin.y = originalIconY;
                 imageView.frame = frame;
                 
                 if (isTimeline) {
