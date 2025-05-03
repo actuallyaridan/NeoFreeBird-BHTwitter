@@ -1987,87 +1987,81 @@ static NSDate *lastCookieRefresh              = nil;
 }
 
 // Dirty hax for making the Nav Icon themeable again.
+static char kOriginalIconYKey;
+
+static void setOriginalIconY(UIView *view, CGFloat y) {
+    objc_setAssociatedObject(view, &kOriginalIconYKey, @(y), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+static CGFloat getOriginalIconY(UIView *view) {
+    NSNumber *value = objc_getAssociatedObject(view, &kOriginalIconYKey);
+    return value ? [value floatValue] : 0;
+}
 
 %hook TFNNavigationBar
 
-%property (nonatomic, assign) CGFloat originalIconY;
-
 %new
-- (BOOL)isTimelineViewController {
+- (BOOL)shouldHideTwitterIcon {
     UIViewController *ancestor = [self _viewControllerForAncestor];
-    if (!ancestor) return NO;
+    if (!ancestor) return YES;
     
-    // Get the navigation controller if it exists
     UINavigationController *navController = ancestor.navigationController ?: (UINavigationController *)ancestor;
-    if (!navController) return NO;
+    if (!navController) return YES;
     
-    // Get the top view controller
     UIViewController *topViewController = navController.topViewController;
-    if (!topViewController) return NO;
+    if (!topViewController) return YES;
     
-    // Get the top view controller class name
     NSString *topViewControllerClassName = NSStringFromClass([topViewController class]);
     
-    // Check for Settings or Voice tab with exact class names
+    // Hide on Settings or Voice tab
     if ([topViewControllerClassName isEqualToString:@"T1GenericSettingsViewController"] ||
         [topViewControllerClassName isEqualToString:@"T1VoiceTabViewController"]) {
-        return NO;
+        return YES;
     }
     
-    // Check if we're in the main timeline navigation controller and at root level
-    return [NSStringFromClass([navController class]) isEqualToString:@"T1TimelineNavigationController"] && 
-           navController.viewControllers.count <= 1;
+    // Show only on main timeline
+    BOOL isMainTimelineNav = [NSStringFromClass([navController class]) isEqualToString:@"T1TimelineNavigationController"];
+    BOOL isRootLevel = navController.viewControllers.count <= 1;
+    
+    return !(isMainTimelineNav && isRootLevel);
 }
 
 - (void)layoutSubviews {
     %orig;
     
-    // Check if we're in a Timeline view
-    BOOL isTimeline = [self isTimelineViewController];
-    
-    // Find and theme/hide the Twitter icon
     for (UIView *subview in self.subviews) {
-        if ([subview isKindOfClass:[UIImageView class]]) {
-            UIImageView *imageView = (UIImageView *)subview;
-            
-            // Check if this is our target image view - only check width, height, and x position
-            BOOL isTargetFrame = (fabs(imageView.frame.size.width - 29.0) < 1.0 && 
-                                fabs(imageView.frame.size.height - 29.0) < 1.0 && 
-                                fabs(imageView.frame.origin.x - 173.0) < 1.0);
-            
-            if (isTargetFrame) {
-                // Store the original Y position if we haven't already
-                if (self.originalIconY == 0) {
-                    self.originalIconY = imageView.frame.origin.y;
-                }
-                
-                // Keep the icon at its original position
-                CGRect frame = imageView.frame;
-                frame.origin.y = self.originalIconY;
-                imageView.frame = frame;
-                
-                if (isTimeline) {
-                    // Theme the icon with the current accent color
-                    imageView.tintColor = BHTCurrentAccentColor();
-                    
-                    // Ensure alwaysTemplate mode persists
-                    if (imageView.image.renderingMode != UIImageRenderingModeAlwaysTemplate) {
-                        imageView.image = [imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-                    }
-                    
-                    // Show and theme the image view
-                    imageView.hidden = NO;
-                    imageView.alpha = 1.0;
-                    
-                    // Force a redraw
-                    [imageView setNeedsDisplay];
-                } else {
-                    // Hide the icon completely when not in timeline
-                    imageView.hidden = YES;
-                    imageView.alpha = 0.0;
-                }
-            }
+        if (![subview isKindOfClass:[UIImageView class]]) continue;
+        
+        UIImageView *imageView = (UIImageView *)subview;
+        BOOL isTwitterIcon = (fabs(imageView.frame.size.width - 29.0) < 1.0 && 
+                            fabs(imageView.frame.size.height - 29.0) < 1.0 && 
+                            fabs(imageView.frame.origin.x - 173.0) < 1.0);
+        
+        if (!isTwitterIcon) continue;
+        
+        // Store original position
+        if (getOriginalIconY(self) == 0) {
+            setOriginalIconY(self, imageView.frame.origin.y);
         }
+        
+        // Maintain position
+        CGRect frame = imageView.frame;
+        frame.origin.y = getOriginalIconY(self);
+        imageView.frame = frame;
+        
+        // Handle visibility and theming
+        if ([self shouldHideTwitterIcon]) {
+            imageView.hidden = YES;
+            imageView.alpha = 0.0;
+        } else {
+            imageView.tintColor = BHTCurrentAccentColor();
+            imageView.image = [imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            imageView.hidden = NO;
+            imageView.alpha = 1.0;
+            [imageView setNeedsDisplay];
+        }
+        
+        break;
     }
 }
 
