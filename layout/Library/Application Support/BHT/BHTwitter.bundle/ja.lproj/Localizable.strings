@@ -354,24 +354,24 @@
 /*Modern Settings Layout*/
 
 "MODERN_SETTINGS_LAYOUT_TITLE" = "一般";
-"MODERN_SETTINGS_LAYOUT_SUBTITLE" = "カスタムフォント、ナビゲーションバーのテーマ、その他のオプションを使用して、タイムラインを自分好みにカスタマイズできます。";
+"MODERN_SETTINGS_LAYOUT_SUBTITLE" = "カスタムフォント、タブバーのテーマなど、その他のオプションを使用してタイムラインを自分好みにカスタマイズできます。";
 
 "MODERN_SETTINGS_MEDIA_TITLE" = "メディアとダウンロード";
-"MODERN_SETTINGS_MEDIA_SUBTITLE" = "動画のダウンロード、4Kアップロードの有効化、その他の改善。";
+"MODERN_SETTINGS_MEDIA_SUBTITLE" = "動画のダウンロード、タイムスタンプの有効化など。";
 
 "MODERN_SETTINGS_TWITTER_BLUE_TITLE" = "Twitter Blue";
-"MODERN_SETTINGS_TWITTER_BLUE_SUBTITLE" = "広告の非表示、ツイートの取り消し、テーマ、カスタムアプリアイコンなどのTwitter Blue機能のロックを解除しましょう";
+"MODERN_SETTINGS_TWITTER_BLUE_SUBTITLE" = "広告の非表示、ツイートの取り消し、カラーテーマ、カスタムアイコンなどのTwitter Blue機能のロックを解除しましょう。";
 
 "MODERN_SETTINGS_PROFILES_TITLE" = "プロフィール";
-"MODERN_SETTINGS_PROFILES_SUBTITLE" = "プロフィールに表示する内容や操作方法を自由にカスタマイズできます。";
+"MODERN_SETTINGS_PROFILES_SUBTITLE" = "プロフィールに表示されるものを変更します。";
 
 "MODERN_SETTINGS_TWEETS_TITLE" = "ツイートと返信";
-"MODERN_SETTINGS_TWEETS_SUBTITLE" = "ツイートの外観を変更し、ソースラベルなどの昔の機能を復活させます。";
+"MODERN_SETTINGS_TWEETS_SUBTITLE" = "ツイートの動作を変更し、使用しない可能性のある機能を削除します。";
 
 "MODERN_SETTINGS_MESSAGES_TITLE" = "ダイレクトメッセージ";
 "MODERN_SETTINGS_MESSAGES_SUBTITLE" = "Twitterのメッセージ機能をカスタマイズします。";
 
 "MODERN_SETTINGS_EXPERIMENTAL_TITLE" = "実験的機能";
-"MODERN_SETTINGS_EXPERIMENTAL_SUBTITLE" = "不安定になる可能性がある機能を試してください。";
+"MODERN_SETTINGS_EXPERIMENTAL_SUBTITLE" = "最新の不安定な機能をお試しください。";
 
-"MODERN_SETTINGS_PLACEHOLDER_TITLE" = "ここには何もありません — 今はまだ。";
+"MODERN_SETTINGS_PLACEHOLDER_TEXT" = "ここには何もありません — 今はまだ。";
